@@ -1964,24 +1964,21 @@ const resData = [
 
 const RestaurantCard = (props) => {
   const { resData } = props;
+  const { name, cuisine, costText, image } = resData?.info;
+  const { deliveryTime } = resData?.order;
   return (
     <div className="res-card" style={styleCard}>
-      <img
-        className="res-logo"
-        src={resData.info.image.url}
-        alt="res-logo"
-        srcSet=""
-      />
-      <h3>{resData.info.name}</h3>
+      <img className="res-logo" src={image.url} alt="res-logo" srcSet="" />
+      <h3>{name}</h3>
       <h4>
-        {(Names = resData.info.cuisine.reduce((acc, curr) => {
+        {(Names = cuisine.reduce((acc, curr) => {
           acc.push(curr["name"]);
           return acc;
         }, [])).toString()}
       </h4>
       <h4>{"Rating: " + resData.info.rating.rating_text}</h4>
-      <h4>{resData.order.deliveryTime}</h4>
-      <h4>{resData.info.costText.text}</h4>
+      <h4>{deliveryTime}</h4>
+      <h4>{costText.text}</h4>
     </div>
   );
 };
@@ -1991,10 +1988,18 @@ const Body = () => {
     <div className="body">
       <div className="search">Seach</div>
       <div className="res-container">
-        <RestaurantCard resData={resData[0]} />
+        {resData.map((restaurant) => (
+          <RestaurantCard key={restaurant.info.resId} resData={restaurant} />
+        ))}
+        {/* <RestaurantCard resData={resData[0]} />
         <RestaurantCard resData={resData[1]} />
         <RestaurantCard resData={resData[2]} />
         <RestaurantCard resData={resData[3]} />
+        <RestaurantCard resData={resData[4]} />
+        <RestaurantCard resData={resData[5]} />
+        <RestaurantCard resData={resData[6]} />
+        <RestaurantCard resData={resData[7]} />
+        <RestaurantCard resData={resData[8]} /> */}
       </div>
     </div>
   );
