@@ -6,8 +6,23 @@ const Body = () => {
   const [listofRestaurants, setlistofRestaurants] = useState(resData);
 
   useEffect(() => {
-    console.log("useEffect called");
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+    );
+
+    const json = await data.json();
+    const data1 = await json.data.cards[5].card.card.gridElements[
+      "infoWithStyle"
+    ].restaurants;
+    console.log(data1);
+    setlistofRestaurants(data1);
+    // console.log(json.data.cards[5].card.gridElements);
+    // setlistofRestaurants(json.)
+  };
 
   return (
     <div className="body">
