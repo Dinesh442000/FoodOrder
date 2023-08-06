@@ -26,8 +26,8 @@
 
 .res-card {
   padding: 5px;
-  width: 200px;
-  height: 350px;
+  width: 220px;
+
   margin: 5px;
 }
 
@@ -42,4 +42,10 @@
 
 .res-logo {
   width: 100%;
+  height: 150px;
+}
+
+.filter-btn {
+  margin: 10px;
+  cursor: pointer;
 }

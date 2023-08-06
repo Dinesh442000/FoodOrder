@@ -1,28 +1,10 @@
 import RestaurantCard from "./RestaurantCard";
-import resData from "../utils/mockData";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import resList from "../utils/mockData";
 
 const Body = () => {
-  const [listofRestaurants, setlistofRestaurants] = useState(resData);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
-    );
-
-    const json = await data.json();
-    const data1 = await json.data.cards[5].card.card.gridElements[
-      "infoWithStyle"
-    ].restaurants;
-    console.log(data1);
-    setlistofRestaurants(data1);
-    // console.log(json.data.cards[5].card.gridElements);
-    // setlistofRestaurants(json.)
-  };
+  // Local State Variable - Super powerful variable
+  const [listOfRestaurants, setListOfRestraunt] = useState(resList);
 
   return (
     <div className="body">
@@ -30,19 +12,18 @@ const Body = () => {
         <button
           className="filter-btn"
           onClick={() => {
-            const filterList = listofRestaurants.filter(
-              (resData) => Number(resData.info.rating.rating_text) >= 4
+            const filteredList = listOfRestaurants.filter(
+              (res) => res.data.avgRating > 4
             );
-            setlistofRestaurants(filterList);
-            console.log(filterList);
+            setListOfRestraunt(filteredList);
           }}
         >
-          Top Rated Restaurats
+          Top Rated Restaurants
         </button>
       </div>
       <div className="res-container">
-        {listofRestaurants.map((restaurant) => (
-          <RestaurantCard key={restaurant.info.resId} resData={restaurant} />
+        {listOfRestaurants.map((restaurant) => (
+          <RestaurantCard key={restaurant.data.id} resData={restaurant} />
         ))}
       </div>
     </div>
