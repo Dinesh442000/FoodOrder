@@ -5,10 +5,42 @@ import { useEffect } from "react";
 
 const Body = () => {
   // Local State Variable - Super powerful variable
-  const [listOfRestaurants, setListOfRestraunt] = useState(resList);
+  const [listOfRestaurants, setListOfRestraunt] = useState([]);
+  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
 
   //Creating a hook to store state of variable
-  const [] = useEffect();
+  // useEffect(() => {
+  //   console.log("use effect called");
+  // }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+    );
+    const json = await data.json();
+
+    // console.log(json.data);
+
+    setListOfRestraunt(
+      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    setFilteredRestaurant(
+      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+
+    //setListOfRestraunt();
+    // console.log(
+    //   json.data.cards[5].card.card.gridElements?.infoWithStyle.restaurants
+    // );
+    // setListOfRestraunt(
+    //   json.data.cards[5].card.card.gridElements?.infoWithStyle.restaurants
+    // );
+    //json.data.cards[5].card.card.gridElements.infoWithStyle.restaurants
+  };
 
   return (
     <div className="body">
@@ -17,7 +49,7 @@ const Body = () => {
           className="filter-btn"
           onClick={() => {
             const filteredList = listOfRestaurants.filter(
-              (res) => res.data.avgRating > 4
+              (res) => res.info.avgRating > 4
             );
             setListOfRestraunt(filteredList);
           }}
@@ -27,7 +59,7 @@ const Body = () => {
       </div>
       <div className="res-container">
         {listOfRestaurants.map((restaurant) => (
-          <RestaurantCard key={restaurant.data.id} resData={restaurant} />
+          <RestaurantCard key={restaurant.id} resData={restaurant} />
         ))}
       </div>
     </div>
