@@ -38,9 +38,11 @@ const Body = () => {
     );
   };
 
-  return listOfRestaurants.length === 0 ? (
-    <Shimmer />
-  ) : (
+  if (listOfRestaurants.length === 0) {
+    return <Shimmer />;
+  }
+
+  return (
     <div className="body">
       <div className="filter">
         <div className="search">
