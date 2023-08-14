@@ -2,6 +2,8 @@ import RestaurantCard from "./RestaurantCard";
 import { useState } from "react";
 import Shimmer from "./Shimmer";
 import { useEffect } from "react";
+import { HOME_PAGE } from "../utils/constants";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   // Local State Variable - Super powerful variable
@@ -24,7 +26,7 @@ const Body = () => {
   const fetchData = async () => {
     const data = await fetch(
       //"https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.5204303&lng=73.8567437&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      HOME_PAGE
     );
     const json = await data.json();
 
@@ -38,10 +40,9 @@ const Body = () => {
     );
   };
 
-  if (listOfRestaurants.length === 0) {
+  if (listOfRestaurants.length == 0) {
     return <Shimmer />;
   }
-
   return (
     <div className="body">
       <div className="filter">
@@ -80,7 +81,13 @@ const Body = () => {
       </div>
       <div className="res-container">
         {filteredRestaurant.map((restaurant) => (
-          <RestaurantCard key={restaurant?.info?.id} resData={restaurant} />
+          <Link
+            key={restaurant?.info?.id}
+            to={"restaurants/" + restaurant?.info?.id}
+          >
+            {" "}
+            <RestaurantCard resData={restaurant} />
+          </Link>
         ))}
       </div>
     </div>
