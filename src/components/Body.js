@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedlabel } from "./RestaurantCard";
 import { useState } from "react";
 import Shimmer from "./Shimmer";
 import { useEffect } from "react";
@@ -12,6 +12,7 @@ const Body = () => {
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
 
+  const RestaurantCardPromoted = withPromotedlabel(RestaurantCard);
   console.log("Body Render");
   //const [filteredRestaurant, setFilteredRestaurant] = useState([]);
 
@@ -88,14 +89,18 @@ const Body = () => {
           </button>
         </div>
       </div>
-      <div className="res-container">
+      <div className="flex flex-wrap">
         {filteredRestaurant.map((restaurant) => (
           <Link
             key={restaurant?.info?.id}
             to={"restaurants/" + restaurant?.info?.id}
           >
             {" "}
-            <RestaurantCard resData={restaurant} />
+            {restaurant?.info?.avgRating > 4.5 ? (
+              <RestaurantCardPromoted resData={restaurant} />
+            ) : (
+              <RestaurantCard resData={restaurant} />
+            )}
           </Link>
         ))}
       </div>
