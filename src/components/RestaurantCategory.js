@@ -1,10 +1,12 @@
 import ItemList from "./ItemList";
-import { useState } from "react";
-const RestaurantCategory = (data) => {
-  const [showItem, setShowItem] = useState(false);
-  //const showItem = true;
+
+const RestaurantCategory = ({ data, showItems, setShowIdex }) => {
+  // const [showItem, setShowItem] = useState(false);
+  // //const showItem = true;
+  console.log(showItems);
   const handleClick = () => {
-    setShowItem(!showItem);
+    setShowIdex(null);
+    setShowIdex();
   };
 
   return (
@@ -18,11 +20,11 @@ const RestaurantCategory = (data) => {
           onClick={handleClick}
         >
           <span className="font-bold text-lg">
-            {data?.data?.title} ({data.data.itemCards.length})
+            {data?.title} ({data.itemCards.length})
           </span>
           <span>⬇</span>
         </div>
-        {showItem && <ItemList items={data?.data?.itemCards} />}
+        {showItems && <ItemList items={data?.itemCards} />}
       </div>
     </div>
   );
