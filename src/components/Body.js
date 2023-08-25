@@ -1,11 +1,11 @@
 import RestaurantCard, { withPromotedlabel } from "./RestaurantCard";
 import { useState } from "react";
 import Shimmer from "./Shimmer";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { HOME_PAGE } from "../utils/constants";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
-
+import UserContext from "../utils/UserContext";
 const Body = () => {
   // Local State Variable - Super powerful variable
   const [listOfRestaurants, setListOfRestraunt] = useState([]);
@@ -46,6 +46,10 @@ const Body = () => {
   if (onlineStatus === false) {
     return <h1>Looks like you are offline. Check your internet</h1>;
   }
+
+  const { loggedInUser, setUser } = useContext(UserContext);
+
+  // const { setUser } = useContext();
 
   if (listOfRestaurants.length == 0) {
     return <Shimmer />;
@@ -88,7 +92,17 @@ const Body = () => {
             Top Rated Restaurants
           </button>
         </div>
+        <div className="search m-4 p-4 flex items-center">
+          <label>User name : </label>
+          <input
+            type="text"
+            className="border border-black p-2"
+            value={loggedInUser}
+            onChange={(e) => setUser(e.target.value)}
+          />
+        </div>
       </div>
+
       <div className="flex flex-wrap">
         {filteredRestaurant.map((restaurant) => (
           <Link
