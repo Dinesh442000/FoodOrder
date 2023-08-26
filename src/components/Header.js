@@ -3,17 +3,22 @@ import { LOGO_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 const Header = () => {
-  let btnName = "Login";
+  // let btnName = "Login";
 
   const [btnNameReact, setBtnNameReact] = useState("Login");
   const { loggedInUser } = useContext(UserContext);
-  console.log(loggedInUser);
-  console.log("Header rendered");
+  // console.log(loggedInUser);
+  // console.log("Header rendered");
 
-  useEffect(() => {
-    console.log("UseEffect Called");
-  }, [btnNameReact]);
+  // useEffect(() => {
+  //   console.log("UseEffect Called");
+  // }, [btnNameReact]);
+
+  //Subscribing to store using selector
+  const cartItems = useSelector((store) => store.cart.items);
+  console.log(cartItems);
 
   const onlineStatus = useOnlineStatus();
   return (
@@ -36,7 +41,9 @@ const Header = () => {
           <li className="px-4">
             <Link to="/contact">Contact Us</Link>
           </li>
-          <li>Cart</li>
+          <li className="px-4 font-bold text-xl">
+            Cart - ({cartItems.length} items)
+          </li>
           <button
             className="login-button"
             onClick={() => {
