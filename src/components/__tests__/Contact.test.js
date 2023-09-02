@@ -31,7 +31,7 @@ describe("Contact Us page Test Cases", () => {
     expect(input_name).toBeInTheDocument();
   });
 
-  test("Should load 21 input boxes on the Contact Component", () => {
+  test("Should load 2 input boxes on the Contact Component", () => {
     render(<Contact />);
 
     const inputBoxes = screen.getAllByRole("textbox");
