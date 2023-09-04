@@ -110,7 +110,7 @@ const Body = () => {
             to={"restaurants/" + restaurant?.info?.id}
           >
             {" "}
-            {restaurant?.info?.avgRating > 4.5 ? (
+            {restaurant?.info?.avgRating > 4 ? (
               <RestaurantCardPromoted resData={restaurant} />
             ) : (
               <RestaurantCard resData={restaurant} />

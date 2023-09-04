@@ -35,7 +35,7 @@ describe("Contact Us page Test Cases", () => {
     render(<Contact />);
 
     const inputBoxes = screen.getAllByRole("textbox");
-    console.log(inputBoxes.length);
+    //console.log(inputBoxes.length);
 
     //Assertions to be written to check conditions else everything is passed
     expect(inputBoxes.length).toBe(2);
