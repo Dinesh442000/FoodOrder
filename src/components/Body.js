@@ -13,7 +13,7 @@ const Body = () => {
   const [searchText, setSearchText] = useState("");
 
   const RestaurantCardPromoted = withPromotedlabel(RestaurantCard);
-  console.log("Body Render");
+  //console.log("Body Render");
   //const [filteredRestaurant, setFilteredRestaurant] = useState([]);
 
   //Creating a hook to store state of variable
@@ -31,7 +31,7 @@ const Body = () => {
       HOME_PAGE
     );
     const json = await data.json();
-
+    //console.log(json);
     // console.log(json.data);
 
     setListOfRestraunt(
@@ -42,6 +42,7 @@ const Body = () => {
     );
   };
 
+  console.log(listOfRestaurants);
   const onlineStatus = useOnlineStatus();
   if (onlineStatus === false) {
     return <h1>Looks like you are offline. Check your internet</h1>;
@@ -51,7 +52,7 @@ const Body = () => {
 
   // const { setUser } = useContext();
 
-  if (listOfRestaurants.length == 0) {
+  if (listOfRestaurants.length === 0) {
     return <Shimmer />;
   }
   return (
